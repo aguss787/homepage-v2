@@ -1,113 +1,154 @@
+import {
+  NAME,
+  BIO,
+  EXPERIENCE,
+  SIDE_PROJECTS,
+} from "@/components/data/profile";
+import { ArrowUpCircleIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowTopRightOnSquareIcon,
+  ChevronDownIcon,
+} from "@heroicons/react/24/solid";
 import Image from "next/image";
+import Link from "next/link";
+import { ReactNode } from "react";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <main className="flex flex-col gap-5 w-full px-5 sm:px-24 pt-5">
+      <div className="absolute right-8 top-screen-bottom-1 bottom-0 contain-paint pointer-events-none">
+        <a
+          href="#"
+          className="sticky p-2 top-[85vh] pointer-events-auto"
+          aria-label="Back to top"
+        >
+          <ArrowUpCircleIcon className="size-10 opacity-50 hover:opacity-100 hover:fill-blue-300 hover:animate-pulse" />
+        </a>
+      </div>
+
+      <Bio />
+      <Experience />
+      <SideProjects />
+    </main>
+  );
+}
+
+function SideProjects(): ReactNode {
+  return (
+    <Section title="Side Projects">
+      {SIDE_PROJECTS.map((project) => (
+        <div key={project.id} className="flex flex-col gap-3">
+          <div className="flex flex-col">
+            <span className="font-bold">{project.name}</span>
+            <span className="text-sm">{project.description}</span>
+          </div>
+          <ul className="list-disc ml-4">
+            {project.links.map((link) => (
+              <li key={link.name}>
+                <Link href={link.link} target="_blank">
+                  {link.name}
+                  <ArrowTopRightOnSquareIcon className="inline size-2 align-top" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </Section>
+  );
+}
+
+function Experience(): ReactNode {
+  return (
+    <Section title="Experience">
+      {EXPERIENCE.map((exp) => (
+        <div key={exp.id} className="flex flex-col">
+          <input
+            id={"exp-toggle-" + exp.id}
+            type="checkbox"
+            className="peer hidden"
+          />
+          <label
+            htmlFor={"exp-toggle-" + exp.id}
+            className="cursor-pointer group"
           >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+            <div className="flex flex-row gap-3">
+              <Image src={exp.image} alt={"exp.id"} width={75} height={75} />
+              <div className="flex flex-col">
+                <span className="font-bold">
+                  {exp.name}, {exp.sections[0].title}
+                </span>
+                <span className="text-sm">{exp.date}</span>
+              </div>
+              <ChevronDownIcon className="size-10 self-center ml-auto transition-transform peer-checked:group-[]:rotate-180" />
+            </div>
+          </label>
+          <div className="overflow-hidden scroll-m-0 transition-height duration-500 max-h-0 peer-checked:max-h-[3999px]">
+            <div className="p-4 flex flex-col gap-5">
+              {exp.sections.map((section) => (
+                <div key={section.id} className="flex flex-col">
+                  <p className="font-bold">{section.title}</p>
+                  <p className="text-sm">{section.date}</p>
+                  <ul className="pt-3 list-disc ml-4">
+                    {section.responsibilities.map((resp) => (
+                      <li key={resp}>{resp}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </Section>
+  );
+}
+
+function Bio() {
+  return (
+    <div className="bio">
+      <div className="flex flex-col gap-5 sm:flex-row-reverse items-center sm:items-start w-fit mx-auto">
+        <div className="min-w-[100px] w-1/2 sm:min-w-[150px] sm:w-[150px] sm:pt-2">
+          <Image
+            src="images/photo.jpg"
+            alt="photo"
+            height={512}
+            width={512}
+            className="rounded-full"
+          />
+        </div>
+        <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-3">
+            <span className="text-center sm:text-left font-bold text-xl sm:text-2xl">
+              {NAME}
+            </span>
+            <hr />
+            {BIO.map((bio, index) => (
+              <span key={index} className="text-center h-fit sm:text-left">
+                {bio}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
+    </div>
+  );
+}
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+function Section({
+  title,
+  children,
+}: {
+  title: string;
+  children: ReactNode;
+}): ReactNode {
+  return (
+    <div className="flex flex-col gap-3">
+      <span className="text-xl font-bold text-center sm:text-left">
+        {title}
+      </span>
+      <hr />
+      {children}
+    </div>
   );
 }

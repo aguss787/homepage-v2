@@ -1,0 +1,7 @@
+@media (max-width: 640px) {
+  body:has(.peer\/sidebar-toggle:enabled:checked) {
+    height: 100%;
+    overflow: hidden;
+  }
+}
+
