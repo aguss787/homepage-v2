@@ -10,18 +10,52 @@ export const BIO = [
   .map((line) => line.replace(/\n|\r/g, ""))
   .map((line) => line.replace(/ +/g, " "));
 
+export const ACHIEVEMENTS = [
+  {
+    id: "icpc",
+    name: "ICPC",
+    image: "images/icpc.png",
+    date: "2015 - 2018",
+    title: "Contenstant",
+    sections: [
+      {
+        id: "icpc",
+        details: [
+          "2018 ICPC Asia Yangon Regional Programming Contest",
+          "2018 Asia Singapore Preliminary Contest (Online)",
+          "2018 Asia Singapore Onsite Contest",
+          "7th for 2017 Asia Jakarta Regional Contest",
+          "2017 Asia Nakhon Pathom Regional Contest",
+          "20th for 41st Annual World Finals of the ACM ICPC",
+          "Runner up of 2016 ACM-ICPC Asia Jakarta Regional Contest",
+          "2015 Asia Singapore Onsite Contest",
+          "Second runner up of 2015 ACM-ICPC Asia Jakarta Regional Contest",
+        ],
+      },
+    ],
+  },
+  {
+    id: "ioi",
+    name: "IOI",
+    image: "images/ioi2015.png",
+    date: "2015",
+    title: "Silver Medalist",
+  },
+];
+
 export const EXPERIENCE = [
   {
     id: "glints",
     name: "Glints",
     image: "images/glints.png",
     date: "November 2022 - Present",
+    title: "Senior Software Engineer",
     sections: [
       {
         id: "glints-sse",
         title: "Senior Software Engineer",
         date: "November 2022 - Present",
-        responsibilities: [
+        details: [
           "Building and leading Glints’ new Managed Talent Platform team to facilitate rapid development of the new product",
           "Mentoring two engineers on learning Rust and helping them transition into back-end/full-stack software engineers",
           "Developing Glints’ Managed Talent Rust code bases, including the API services, workers, and its shared libraries",
@@ -37,12 +71,13 @@ export const EXPERIENCE = [
     name: "Horangi",
     image: "images/horangi.png",
     date: "December 2021 - October 2022",
+    title: "Software Engineer",
     sections: [
       {
         id: "horangi-se",
         title: "Software Engineer",
         date: "December 2021 - October 2022",
-        responsibilities: [
+        details: [
           "Developed new feature for the IAM Team Data Pipeline and API",
           "Optimized the performance of the IAM Team Data Pipeline to enable ingestion of data in the magnitude of gigabytes",
           "Built the IAM Team CI/CD Process using GitHub actions",
@@ -56,12 +91,13 @@ export const EXPERIENCE = [
     name: "Sirclo",
     image: "images/sirclo.png",
     date: "January 2020 - November 2021",
+    title: "Associate Engineer Manager",
     sections: [
       {
         id: "sirclo-aem",
         title: "Associate Engineer Manager",
         date: "January 2021 - November 2021",
-        responsibilities: [
+        details: [
           "Managed three teams: Account, Authentication, and Authorization; Billing; and Integration with one of Indonesia’s biggest shopping malls. Each team presents a unique challenge that must be approached differently",
           "Oversaw company’s open API development",
           "Conducted 1-on-1 with direct reports to ensure optimal performance and maintain it without burning out",
@@ -74,7 +110,7 @@ export const EXPERIENCE = [
         id: "sirclo-se",
         title: "Software Engineer",
         date: "January 2020 - January 2021",
-        responsibilities: [
+        details: [
           "Initialized and develop the company’s open API project",
           "Optimized stock synchronization process with marketplaces that results in faster and more consistent stock in marketplaces",
           "Developed the company’s in-house framework that all teams will use to develop their services to reduce time and boilerplate code to develop new services",

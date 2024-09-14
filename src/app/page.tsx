@@ -3,6 +3,7 @@ import {
   BIO,
   EXPERIENCE,
   SIDE_PROJECTS,
+  ACHIEVEMENTS,
 } from "@/components/data/profile";
 import { ArrowUpCircleIcon } from "@heroicons/react/24/outline";
 import {
@@ -29,6 +30,7 @@ export default function Home() {
       <Bio />
       <Experience />
       <SideProjects />
+      <Achievement />
     </main>
   );
 }
@@ -58,50 +60,12 @@ function SideProjects(): ReactNode {
   );
 }
 
+function Achievement(): ReactNode {
+  return <GenericCollapsibleSection title="Achievement" data={ACHIEVEMENTS} />;
+}
+
 function Experience(): ReactNode {
-  return (
-    <Section title="Experience">
-      {EXPERIENCE.map((exp) => (
-        <div key={exp.id} className="flex flex-col">
-          <input
-            id={"exp-toggle-" + exp.id}
-            type="checkbox"
-            className="peer hidden"
-          />
-          <label
-            htmlFor={"exp-toggle-" + exp.id}
-            className="cursor-pointer group"
-          >
-            <div className="flex flex-row gap-3">
-              <Image src={exp.image} alt={"exp.id"} width={75} height={75} />
-              <div className="flex flex-col">
-                <span className="font-bold">
-                  {exp.name}, {exp.sections[0].title}
-                </span>
-                <span className="text-sm">{exp.date}</span>
-              </div>
-              <ChevronDownIcon className="size-10 self-center ml-auto transition-transform peer-checked:group-[]:rotate-180" />
-            </div>
-          </label>
-          <div className="overflow-hidden scroll-m-0 transition-height duration-500 max-h-0 peer-checked:max-h-[3999px]">
-            <div className="p-4 flex flex-col gap-5">
-              {exp.sections.map((section) => (
-                <div key={section.id} className="flex flex-col">
-                  <p className="font-bold">{section.title}</p>
-                  <p className="text-sm">{section.date}</p>
-                  <ul className="pt-3 list-disc ml-4">
-                    {section.responsibilities.map((resp) => (
-                      <li key={resp}>{resp}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      ))}
-    </Section>
-  );
+  return <GenericCollapsibleSection title="Experience" data={EXPERIENCE} />;
 }
 
 function Bio() {
@@ -150,5 +114,71 @@ function Section({
       <hr />
       {children}
     </div>
+  );
+}
+
+interface CollapsibleData {
+  id: string;
+  name: string;
+  image: string;
+  date: string;
+  title?: string;
+  sections?: { id: string; title?: string; date?: string; details: string[] }[];
+}
+
+function GenericCollapsibleSection({
+  title,
+  data,
+}: {
+  title: string;
+  data: CollapsibleData[];
+}): ReactNode {
+  return (
+    <Section title={title}>
+      {data.map((datum) => (
+        <div key={datum.id} className="flex flex-col">
+          <input
+            id={title + "-toggle-" + datum.id}
+            type="checkbox"
+            className="peer hidden"
+          />
+          <label
+            htmlFor={title + "-toggle-" + datum.id}
+            className={"group" + (datum.sections ? " cursor-pointer" : "")}
+          >
+            <div className="flex flex-row gap-3">
+              <Image src={datum.image} alt={"exp.id"} width={75} height={75} />
+              <div className="flex flex-col">
+                <span className="font-bold">
+                  {datum.name}
+                  {datum.title ? ", " + datum.title : ""}
+                </span>
+                <span className="text-sm">{datum.date}</span>
+              </div>
+              {datum.sections && (
+                <ChevronDownIcon className="size-10 self-center ml-auto transition-transform peer-checked:group-[]:rotate-180" />
+              )}
+            </div>
+          </label>
+          <div className="overflow-hidden scroll-m-0 transition-height duration-500 max-h-0 peer-checked:max-h-[3999px]">
+            <div className="p-4 flex flex-col gap-5">
+              {datum.sections?.map((section) => (
+                <div key={section.id} className="flex flex-col">
+                  {section.title && (
+                    <p className="font-bold">{section.title}</p>
+                  )}
+                  {section.date && <p className="text-sm">{section.date}</p>}
+                  <ul className="pt-3 list-disc ml-4 first:pt-0">
+                    {section.details.map((detail, index) => (
+                      <li key={index}>{detail}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </Section>
   );
 }
