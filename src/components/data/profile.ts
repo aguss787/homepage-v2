@@ -48,13 +48,13 @@ export const EXPERIENCE = [
     id: "glints",
     name: "Glints",
     image: "images/glints.png",
-    date: "November 2022 - Present",
+    date: "November 2022 - December 2024",
     title: "Senior Software Engineer",
     sections: [
       {
         id: "glints-sse",
         title: "Senior Software Engineer",
-        date: "November 2022 - Present",
+        date: "November 2022 - December 2024",
         details: [
           "Building and leading Glints’ new Managed Talent Platform team to facilitate rapid development of the new product",
           "Mentoring two engineers on learning Rust and helping them transition into back-end/full-stack software engineers",
