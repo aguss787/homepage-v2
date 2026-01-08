@@ -73,6 +73,32 @@ jj git fetch       # Fetch from remote
 
 **Do NOT use `git` commands directly** - use the `jj` equivalents. Jujutsu provides a different model for version control that's more flexible than Git.
 
+### Commit Message Convention
+
+**This project uses Conventional Commits for all commit messages.**
+
+Format: `<type>: <description>`
+
+Common types:
+- `feat`: New feature
+- `fix`: Bug fix
+- `docs`: Documentation changes
+- `chore`: Maintenance tasks (dependencies, tooling, etc.)
+- `refactor`: Code refactoring without functional changes
+- `style`: Code style/formatting changes
+- `test`: Adding or updating tests
+- `perf`: Performance improvements
+
+Examples:
+```bash
+jj describe -m "feat: add dark mode toggle"
+jj describe -m "fix: resolve mobile sidebar animation glitch"
+jj describe -m "docs: update README with deployment instructions"
+jj describe -m "chore: upgrade Next.js to 14.2.8"
+```
+
+**All commit messages MUST follow this convention.**
+
 ## Architecture
 
 ### Directory Structure
