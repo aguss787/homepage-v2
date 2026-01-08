@@ -32,18 +32,23 @@ Use the CSS checkbox pattern:
 
 ## Development Commands
 
+**This project uses `bun` instead of `npm`.**
+
 ```bash
 # Start development server (localhost:3000)
-npm run dev
+bun run dev
+
+# Start on custom host and port (e.g., 0.0.0.0:3001)
+bun run dev -- -H 0.0.0.0 -p 3001
 
 # Build for production (generates static export in /out)
-npm run build
+bun run build
 
 # Run production build locally
-npm start
+bun start
 
 # Run ESLint
-npm run lint
+bun run lint
 ```
 
 ## Version Control: Jujutsu (jj)
