@@ -160,8 +160,9 @@ function GenericCollapsibleSection({
               )}
             </div>
           </label>
-          <div className="overflow-hidden scroll-m-0 transition-height duration-500 max-h-0 peer-checked:max-h-[3999px]">
-            <div className="p-4 flex flex-col gap-5">
+          <div className="grid transition-[grid-template-rows] duration-300 ease-in-out grid-rows-[0fr] peer-checked:grid-rows-[1fr]">
+            <div className="overflow-hidden min-h-0">
+              <div className="p-4 flex flex-col gap-5">
               {datum.sections?.map((section) => (
                 <div key={section.id} className="flex flex-col">
                   {section.title && (
@@ -175,6 +176,7 @@ function GenericCollapsibleSection({
                   </ul>
                 </div>
               ))}
+              </div>
             </div>
           </div>
         </div>
